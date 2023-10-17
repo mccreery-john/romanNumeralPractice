@@ -28,10 +28,9 @@ def roman(inputString):
                 elif constIndex < nextConstIndex and constIndex % 2 != 0:  # no VX or LC etc.
                     return ecNonValidOrder
 
-                elif (index != 0 and currentNumeral >= inputString[index - 1]
+                elif (index != 0 and constIndex >= constNumerals.index(inputString[index - 1])
                       and nextConstIndex > constIndex):  # no IIV or IIX or IXL, etc.
                     return ecNonValidOrder
-
                 elif currentNumeral == inputString[index + 1]:
                     if constIndex % 2 != 0:  # no VV or LL or DD
                         return ecNonValidOrder
@@ -47,6 +46,8 @@ def roman(inputString):
                         total -= constValues[constIndex]
                     else:
                         total += constValues[constIndex]
+            elif constIndex % 2 != 0 and index > 1 and constIndex >= constNumerals.index(inputString[index - 2]): #No IXV or XCL
+                    return ecNonValidOrder
             else:
                 total += constValues[constIndex]
         index += 1
